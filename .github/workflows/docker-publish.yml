@@ -9,7 +9,7 @@ on:
   # schedule:
   #   - cron: '33 4 * * *'
   push:
-    # branches: [ "main" ]
+    branches: [ "testando-workflow" ]
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
   # pull_request:
