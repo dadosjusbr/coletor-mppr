@@ -1,0 +1,18 @@
+name: TESTE
+
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            - 'teste'
+
+jobs:
+    Dump:
+        runs-on: ubuntu-20.04
+
+        name: teste
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: testando...
+              run: MONTH=05 YEAR=2024 OUTPUT_FOLDER=. go run . 
