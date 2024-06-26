@@ -13,7 +13,6 @@ import (
 	"time"
 
 	"github.com/chromedp/cdproto/browser"
-	"github.com/chromedp/cdproto/network"
 	"github.com/chromedp/chromedp"
 	"github.com/dadosjusbr/status"
 )
@@ -73,29 +72,29 @@ func (c crawler) crawl() ([]string, error) {
 	ctx, cancel = context.WithTimeout(ctx, c.generalTimeout)
 	defer cancel()
 
-	headers := map[string]interface{}{
-		"Accept":                    "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-		"Accept-Encoding":           "gzip, deflate, br, zstd",
-		"Accept-Language":           "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
-		"Cache-Control":             "max-age=0",
-		"Cookie":                    "JSESSIONID=F01DD6C4A4EC7C8560AEDBF13CEBEBA7.tomcat_1; _ga=GA1.1.1930890235.1704813038; _ga_H5PEHBE5SG=GS1.1.1704904466.1.1.1704905301.0.0.0; _ga_ZFW08E36JY=GS1.1.1719427573.13.0.1719427575.0.0.0; dtCookie=v_4_srv_9_sn_27169D87D898D92AEB42C77BD29FA112_perc_100000_ol_0_mul_1_app-3Abcfc0a9266ef49a8_0_rcs-3Acss_1",
-		"Referer":                   "https://apps.mppr.mp.br/sis/ext/mem/indfolha.html",
-		"Sec-Ch-Ua":                 "\"Google Chrome\";v=\"125\", \"Chromium\";v=\"125\", \"Not.A/Brand\";v=\"24\"",
-		"Sec-Ch-Ua-Mobile":          "?1",
-		"Sec-Ch-Ua-Platform":        "\"Android\"",
-		"Sec-Fetch-Dest":            "document",
-		"Sec-Fetch-Mode":            "navigate",
-		"Sec-Fetch-Site":            "same-origin",
-		"Sec-Fetch-User":            "?1",
-		"Upgrade-Insecure-Requests": "1",
-	}
+	// headers := map[string]interface{}{
+	// 	"Accept":                    "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+	// 	"Accept-Encoding":           "gzip, deflate, br, zstd",
+	// 	"Accept-Language":           "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
+	// 	"Cache-Control":             "max-age=0",
+	// 	"Cookie":                    "JSESSIONID=F01DD6C4A4EC7C8560AEDBF13CEBEBA7.tomcat_1; _ga=GA1.1.1930890235.1704813038; _ga_H5PEHBE5SG=GS1.1.1704904466.1.1.1704905301.0.0.0; _ga_ZFW08E36JY=GS1.1.1719427573.13.0.1719427575.0.0.0; dtCookie=v_4_srv_9_sn_27169D87D898D92AEB42C77BD29FA112_perc_100000_ol_0_mul_1_app-3Abcfc0a9266ef49a8_0_rcs-3Acss_1",
+	// 	"Referer":                   "https://apps.mppr.mp.br/sis/ext/mem/indfolha.html",
+	// 	"Sec-Ch-Ua":                 "\"Google Chrome\";v=\"125\", \"Chromium\";v=\"125\", \"Not.A/Brand\";v=\"24\"",
+	// 	"Sec-Ch-Ua-Mobile":          "?1",
+	// 	"Sec-Ch-Ua-Platform":        "\"Android\"",
+	// 	"Sec-Fetch-Dest":            "document",
+	// 	"Sec-Fetch-Mode":            "navigate",
+	// 	"Sec-Fetch-Site":            "same-origin",
+	// 	"Sec-Fetch-User":            "?1",
+	// 	"Upgrade-Insecure-Requests": "1",
+	// }
 
-	// Configurar os cabeçalhos
-	chromedp.ListenTarget(ctx, func(ev interface{}) {
-		if _, ok := ev.(*network.EventRequestWillBeSent); ok {
-			network.SetExtraHTTPHeaders(network.Headers(headers)).Do(ctx)
-		}
-	})
+	// // Configurar os cabeçalhos
+	// chromedp.ListenTarget(ctx, func(ev interface{}) {
+	// 	if _, ok := ev.(*network.EventRequestWillBeSent); ok {
+	// 		network.SetExtraHTTPHeaders(network.Headers(headers)).Do(ctx)
+	// 	}
+	// })
 
 	// Contracheques
 	log.Printf("Selecionando contracheques (%s/%s)...", c.month, c.year)
@@ -145,7 +144,7 @@ func (c crawler) selecionaContracheque(ctx context.Context) error {
 	}
 
 	return chromedp.Run(ctx,
-		chromedp.Navigate("https://apps.mppr.mp.br/PortaleAdm/app/portalTransparencia"),
+		chromedp.Navigate("https://apps.mppr.mp.br/PortaleAdm/app/portalTransparencia?execution=e1s1"),
 		chromedp.Sleep(c.timeBetweenSteps),
 		// Seleciona o ano
 		chromedp.Click(`//*[@id="formPortalTransparencia:idSelectAno"]`),
