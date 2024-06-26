@@ -57,6 +57,9 @@ func (c crawler) crawl() ([]string, error) {
 		append(chromedp.DefaultExecAllocatorOptions[:],
 			chromedp.UserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3830.0 Safari/537.36"),
 			chromedp.Flag("headless", true), // mude para false para executar com navegador visível.
+			chromedp.Flag("disable-web-security", true),
+			chromedp.Flag("no-first-run", true),
+			chromedp.Flag("no-default-browser-check", true),
 			chromedp.NoSandbox,
 			chromedp.DisableGPU,
 		)...,
