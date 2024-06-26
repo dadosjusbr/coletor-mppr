@@ -7,15 +7,12 @@ on:
             - 'teste'
 
 jobs:
-    Dump:
+    teste:
         runs-on: ubuntu-20.04
 
         name: teste
         steps:
             - uses: actions/checkout@v3
-
-            - name: Install Chromium
-              run: sudo apt-get install -y chromium-browser
 
             - name: testando...
               run: MONTH=05 YEAR=2024 OUTPUT_FOLDER=. go run . 
