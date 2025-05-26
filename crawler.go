@@ -107,7 +107,7 @@ func (c crawler) selecionaContracheque(ctx context.Context) error {
 	monthMap := map[string]string{
 		"01": "Janeiro",
 		"02": "Fevereiro",
-		"03": "Marco",
+		"03": "Março",
 		"04": "Abril",
 		"05": "Maio",
 		"06": "Junho",
